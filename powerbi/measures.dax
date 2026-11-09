@@ -1,0 +1,27 @@
+// Create each measure separately in Power BI Modeling > New measure.
+// Main date relationship: dim_date[date_key] -> fact_booking[arrival_date_key].
+Bookings = COUNTROWS(fact_booking)
+Completed Bookings = SUM(fact_booking[is_completed])
+Eligible Stays = SUM(fact_booking[eligible_stay])
+Modeled Room Nights = SUM(fact_booking[eligible_nights])
+Estimated Room Revenue = SUM(fact_booking[estimated_room_revenue])
+Weighted ADR = DIVIDE([Estimated Room Revenue], [Modeled Room Nights])
+Average Stay Nights = DIVIDE([Modeled Room Nights], [Eligible Stays])
+Revenue per Eligible Stay = DIVIDE([Estimated Room Revenue], [Eligible Stays])
+Failed Arrivals = SUM(fact_booking[is_failed])
+Failed Arrival Rate = DIVIDE([Failed Arrivals], [Bookings])
+Cancellations = SUM(fact_booking[is_cancel_only])
+Cancellation Rate = DIVIDE([Cancellations], [Bookings])
+No Shows = SUM(fact_booking[is_no_show])
+No Show Rate = DIVIDE([No Shows], [Bookings])
+Cancelled Booked Value = SUM(fact_booking[cancelled_booked_value])
+Repeat Completed Bookings = SUM(fact_booking[repeat_completed])
+Repeat Completed Share = DIVIDE([Repeat Completed Bookings], [Completed Bookings])
+Direct Booking Share = DIVIDE(SUM(fact_booking[is_direct]), [Bookings])
+Median Lead Days = MEDIAN(fact_booking[lead_time])
+Completed Room Mismatch Rate = DIVIDE(CALCULATE(SUM(fact_booking[room_mismatch]),fact_booking[is_completed]=1), [Completed Bookings])
+Commercial Exclusions = [Completed Bookings] - [Eligible Stays]
+// Explicit matched coverage; removes date selection but retains hotel and other dimensions.
+Revenue Jan Aug 2016 = CALCULATE([Estimated Room Revenue], FILTER(ALL(dim_date),dim_date[full_date]>=DATE(2016,1,1) && dim_date[full_date]<=DATE(2016,8,31)))
+Revenue Jan Aug 2017 = CALCULATE([Estimated Room Revenue], FILTER(ALL(dim_date),dim_date[full_date]>=DATE(2017,1,1) && dim_date[full_date]<=DATE(2017,8,31)))
+Matched Revenue Change = DIVIDE([Revenue Jan Aug 2017]-[Revenue Jan Aug 2016], [Revenue Jan Aug 2016])

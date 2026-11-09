@@ -1,0 +1,33 @@
+﻿Field,Meaning and interpretation
+hotel,Source hotel label; two properties only
+is_canceled,1 for Canceled or No-Show in this CSV; 0 for Check-Out
+lead_time,Days between booking entry and scheduled arrival
+arrival_date_year,Scheduled arrival year
+arrival_date_month,Scheduled arrival month name
+arrival_date_week_number,Source arrival week number; do not combine with a different week-year convention
+arrival_date_day_of_month,Scheduled arrival day of month
+stays_in_weekend_nights,Weekend nights booked or stayed; preserve source definition
+stays_in_week_nights,Weekday nights booked or stayed
+adults,Adult count; extreme party sizes need review
+children,Child count; four nulls remain unknown
+babies,Baby count
+meal,"Meal code; BB breakfast, HB half board, FB full board, SC self catering; preserve Undefined"
+country,Guest origin country code; not hotel location; null becomes Unknown
+market_segment,Market segment classification; Online TA is distinct from distribution_channel
+distribution_channel,Distribution classification; TA/TO includes travel agents/tour operators
+is_repeated_guest,Booking associated with a repeat guest flag; not stable guest ID
+previous_cancellations,Recorded previous cancellations associated with booking guest; not linked event history
+previous_bookings_not_canceled,Recorded previous non-cancelled bookings; not a full customer timeline
+reserved_room_type,Anonymous reserved room category code; no verified price hierarchy
+assigned_room_type,Anonymous assigned room category code; mismatch is not necessarily an upgrade
+booking_changes,Number of amendments recorded for booking
+deposit_type,"No Deposit, Non Refund or Refundable classification; no payment ledger"
+agent,"Anonymised agency code; nullable and categorical, not a quantity"
+company,Anonymised company code; nullable and categorical
+days_in_waiting_list,Number of waiting-list days before confirmation
+customer_type,"Booking customer classification: Contract, Group, Transient or Transient-Party"
+adr,Average daily lodging rate; currency assumed EUR for case; inspect zero/negative/extreme values
+required_car_parking_spaces,Parking spaces requested; not actual usage or capacity
+total_of_special_requests,Count of special requests; not a satisfaction score
+reservation_status,"Final observed status: Check-Out, Canceled, No-Show"
+reservation_status_date,Date of final reservation status; meaning depends on status

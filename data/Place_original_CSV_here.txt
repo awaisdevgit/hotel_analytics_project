@@ -1,0 +1,1 @@
+Copy your original hotel_bookings.csv into this folder before running the scripts.
